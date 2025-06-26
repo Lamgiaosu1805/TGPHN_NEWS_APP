@@ -8,24 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		36AB6DCFEA4481226F9D1ADA /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED28FE5CA9B9037DDFD8E1A /* ExpoModulesProvider.swift */; };
+		200435648AAF84C71CC31E0B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8E08109D3DCA5F4439F7B283 /* PrivacyInfo.xcprivacy */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		6308E2E5A1887B94114860E6 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 734298D264FEC8A98B64F5B5 /* PrivacyInfo.xcprivacy */; };
+		6310DFF059A30EFB86FE6B36 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE00A27D944BC0317876E6B /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		E60ACEABA552D018C050299E /* libPods-TGPHNNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A42F174010C479B2AA8DDA75 /* libPods-TGPHNNews.a */; };
+		E5EB5445E149FBBD70F7F823 /* libPods-TGPHNNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F914A64A41227FD6DE3747 /* libPods-TGPHNNews.a */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		11FB1EE71C4AA64AEEC99898 /* Pods-TGPHNNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGPHNNews.debug.xcconfig"; path = "Target Support Files/Pods-TGPHNNews/Pods-TGPHNNews.debug.xcconfig"; sourceTree = "<group>"; };
+		112BE4203BA196DC6D51CDB2 /* Pods-TGPHNNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGPHNNews.release.xcconfig"; path = "Target Support Files/Pods-TGPHNNews/Pods-TGPHNNews.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* TGPHNNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGPHNNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TGPHNNews/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TGPHNNews/Info.plist; sourceTree = "<group>"; };
-		562A063CF10CD5062CA64E19 /* Pods-TGPHNNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGPHNNews.release.xcconfig"; path = "Target Support Files/Pods-TGPHNNews/Pods-TGPHNNews.release.xcconfig"; sourceTree = "<group>"; };
-		734298D264FEC8A98B64F5B5 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = TGPHNNews/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		7ED28FE5CA9B9037DDFD8E1A /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-TGPHNNews/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		A42F174010C479B2AA8DDA75 /* libPods-TGPHNNews.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TGPHNNews.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		35A9F35A0707A6AA1C5744CB /* Pods-TGPHNNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGPHNNews.debug.xcconfig"; path = "Target Support Files/Pods-TGPHNNews/Pods-TGPHNNews.debug.xcconfig"; sourceTree = "<group>"; };
+		46F914A64A41227FD6DE3747 /* libPods-TGPHNNews.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TGPHNNews.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E08109D3DCA5F4439F7B283 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = TGPHNNews/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = TGPHNNews/SplashScreen.storyboard; sourceTree = "<group>"; };
+		AEE00A27D944BC0317876E6B /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-TGPHNNews/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = TGPHNNews/AppDelegate.swift; sourceTree = "<group>"; };
@@ -37,17 +37,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E60ACEABA552D018C050299E /* libPods-TGPHNNews.a in Frameworks */,
+				E5EB5445E149FBBD70F7F823 /* libPods-TGPHNNews.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0E7FDEE7D55F3ED8EFCF0D2C /* ExpoModulesProviders */ = {
+		06344E9525D1B73BF7C72C82 /* ExpoModulesProviders */ = {
 			isa = PBXGroup;
 			children = (
-				9D324B959F21A35BE48D6C4C /* TGPHNNews */,
+				98656BBF6B4C94B4F3C3870A /* TGPHNNews */,
 			);
 			name = ExpoModulesProviders;
 			sourceTree = "<group>";
@@ -61,7 +61,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				734298D264FEC8A98B64F5B5 /* PrivacyInfo.xcprivacy */,
+				8E08109D3DCA5F4439F7B283 /* PrivacyInfo.xcprivacy */,
 			);
 			name = TGPHNNews;
 			sourceTree = "<group>";
@@ -70,18 +70,9 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				A42F174010C479B2AA8DDA75 /* libPods-TGPHNNews.a */,
+				46F914A64A41227FD6DE3747 /* libPods-TGPHNNews.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		69A0A4396BDF1350E8AD8999 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				11FB1EE71C4AA64AEEC99898 /* Pods-TGPHNNews.debug.xcconfig */,
-				562A063CF10CD5062CA64E19 /* Pods-TGPHNNews.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -98,8 +89,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				69A0A4396BDF1350E8AD8999 /* Pods */,
-				0E7FDEE7D55F3ED8EFCF0D2C /* ExpoModulesProviders */,
+				8F754A6710205B56BCE2AD89 /* Pods */,
+				06344E9525D1B73BF7C72C82 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -114,10 +105,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9D324B959F21A35BE48D6C4C /* TGPHNNews */ = {
+		8F754A6710205B56BCE2AD89 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7ED28FE5CA9B9037DDFD8E1A /* ExpoModulesProvider.swift */,
+				35A9F35A0707A6AA1C5744CB /* Pods-TGPHNNews.debug.xcconfig */,
+				112BE4203BA196DC6D51CDB2 /* Pods-TGPHNNews.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		98656BBF6B4C94B4F3C3870A /* TGPHNNews */ = {
+			isa = PBXGroup;
+			children = (
+				AEE00A27D944BC0317876E6B /* ExpoModulesProvider.swift */,
 			);
 			name = TGPHNNews;
 			sourceTree = "<group>";
@@ -139,13 +140,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "TGPHNNews" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				126965FF8E07E112B72FA144 /* [Expo] Configure project */,
+				29DE5DD9DE1710F55A9C4643 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				A7911C4DB7EA51DE895AAD7B /* [CP] Embed Pods Frameworks */,
+				2F73963226FDEB0FD8B1B390 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -195,7 +196,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				6308E2E5A1887B94114860E6 /* PrivacyInfo.xcprivacy in Resources */,
+				200435648AAF84C71CC31E0B /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,7 +240,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		126965FF8E07E112B72FA144 /* [Expo] Configure project */ = {
+		29DE5DD9DE1710F55A9C4643 /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -257,6 +258,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-TGPHNNews/expo-configure-project.sh\"\n";
+		};
+		2F73963226FDEB0FD8B1B390 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TGPHNNews/Pods-TGPHNNews-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TGPHNNews/Pods-TGPHNNews-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -290,24 +309,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TGPHNNews/Pods-TGPHNNews-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A7911C4DB7EA51DE895AAD7B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TGPHNNews/Pods-TGPHNNews-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TGPHNNews/Pods-TGPHNNews-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -316,7 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				36AB6DCFEA4481226F9D1ADA /* ExpoModulesProvider.swift in Sources */,
+				6310DFF059A30EFB86FE6B36 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,13 +326,12 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 11FB1EE71C4AA64AEEC99898 /* Pods-TGPHNNews.debug.xcconfig */;
+			baseConfigurationReference = 35A9F35A0707A6AA1C5744CB /* Pods-TGPHNNews.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TGPHNNews/TGPHNNews.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7W5TBCDB95;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -351,24 +351,23 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kylanx11.hanoiarchdiocesenews;
-				PRODUCT_NAME = TGPHNNews;
+				PRODUCT_NAME = "TGPHNNews";
 				SWIFT_OBJC_BRIDGING_HEADER = "TGPHNNews/TGPHNNews-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 562A063CF10CD5062CA64E19 /* Pods-TGPHNNews.release.xcconfig */;
+			baseConfigurationReference = 112BE4203BA196DC6D51CDB2 /* Pods-TGPHNNews.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TGPHNNews/TGPHNNews.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7W5TBCDB95;
 				INFOPLIST_FILE = TGPHNNews/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -383,10 +382,10 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kylanx11.hanoiarchdiocesenews;
-				PRODUCT_NAME = TGPHNNews;
+				PRODUCT_NAME = "TGPHNNews";
 				SWIFT_OBJC_BRIDGING_HEADER = "TGPHNNews/TGPHNNews-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
