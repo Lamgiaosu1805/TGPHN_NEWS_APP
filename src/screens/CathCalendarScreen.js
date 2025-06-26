@@ -1,13 +1,19 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { StyleSheet, View, ActivityIndicator, Platform, BackHandler } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Platform,
+  BackHandler,
+} from 'react-native';
 import WebView from 'react-native-webview';
+import * as Progress from 'react-native-progress';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function CathCalendarScreen() {
   const webViewRef = useRef(null);
   const insets = useSafeAreaInsets();
-  const [loading, setLoading] = useState(true);
   const [canGoBack, setCanGoBack] = useState(false);
+  const [progress, setProgress] = useState(0); // ← thêm state
 
   const injectScript = () => {
     const spacerHeight = insets.top + 8;
@@ -40,20 +46,14 @@ export default function CathCalendarScreen() {
     webViewRef.current?.injectJavaScript(script);
   };
 
-  const handleMessage = (event) => {
-    if (event.nativeEvent.data === 'header-hidden') {
-      setLoading(false);
-    }
-  };
-
-  // ✅ Xử lý nút back trên Android
+  // Android back
   useEffect(() => {
     const onBackPress = () => {
       if (canGoBack && webViewRef.current) {
         webViewRef.current.goBack();
-        return true; // Đã xử lý back
+        return true;
       }
-      return false; // Cho hệ thống xử lý (thoát màn hình)
+      return false;
     };
 
     const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress);
@@ -62,27 +62,36 @@ export default function CathCalendarScreen() {
 
   return (
     <View style={styles.container}>
-      {loading && (
-        <View style={styles.loadingOverlay}>
-          <ActivityIndicator size="large" color="#1e90ff" />
+      {/* Thanh progress */}
+      {progress < 1 && (
+        <View style={{ position: 'absolute', top: insets.top, left: 0, right: 0, zIndex: 10 }}>
+          <Progress.Bar
+            progress={progress}
+            width={null}
+            borderWidth={0}
+            color="#1e90ff"
+            unfilledColor="#f0f0f0"
+            height={4}
+          />
         </View>
       )}
 
       <WebView
         ref={webViewRef}
-        style={[styles.webview, { opacity: loading ? 0 : 1 }]}
         source={{ uri: 'https://www.tonggiaophanhanoi.org/category/phung-vu/lich-cong-giao/' }}
-        onLoadEnd={injectScript}
-        onMessage={handleMessage}
-        onNavigationStateChange={(navState) => setCanGoBack(navState.canGoBack)} // <- 👈 theo dõi khả năng back
+        style={[styles.webview, { opacity: progress < 1 ? 0 : 1 }]}
         javaScriptEnabled
         domStorageEnabled
         startInLoadingState={false}
         bounces={false}
         showsVerticalScrollIndicator={false}
         useWebKit={true}
-        allowsBackForwardNavigationGestures={Platform.OS === 'ios'} // <- chỉ iOS dùng
+        allowsBackForwardNavigationGestures={Platform.OS === 'ios'}
         decelerationRate={Platform.OS === 'ios' ? 'normal' : 0.985}
+        onNavigationStateChange={(navState) => setCanGoBack(navState.canGoBack)}
+        onLoadEnd={injectScript}
+        onMessage={() => setProgress(1)} // Khi nhận "header-hidden" thì set full
+        onLoadProgress={({ nativeEvent }) => setProgress(nativeEvent.progress)} // ← quan trọng
         injectedJavaScriptBeforeContentLoaded={`
           document.body.style['-webkit-overflow-scrolling'] = 'touch';
           document.body.style.overflow = 'scroll';
@@ -99,16 +108,5 @@ const styles = StyleSheet.create({
   },
   webview: {
     flex: 1,
-  },
-  loadingOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 999,
   },
 });
