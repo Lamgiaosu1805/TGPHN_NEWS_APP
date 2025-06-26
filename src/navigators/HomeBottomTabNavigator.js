@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Platform } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { FontAwesome5 } from '@expo/vector-icons';
 import HomeScreen from '../screens/HomeScreen';
 import MenuScreen from '../screens/MenuScreen';
 import CathCalendarScreen from '../screens/CathCalendarScreen';
+import CatechismScreen from '../screens/CatechismScreen';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -36,23 +38,28 @@ const TabBarIcon = ({ icon, label, focused }) => {
 };
 
 export default function HomeBottomTabSwipeNavigator() {
+  const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator
       initialLayout={{ width: Dimensions.get('window').width }}
       swipeEnabled={true}
       tabBarPosition="bottom"
       screenOptions={{
+        swipeEnabled: true,
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: '#fff',
-          height: 75,
+          height: Platform.OS === 'android' ? 75 + insets.bottom / 2 : 75,
           borderTopWidth: 0.3,
           borderTopColor: '#ccc',
           elevation: 4,
         },
         tabBarIndicatorStyle: {
-          height: 0, // Ẩn gạch chân mặc định
+          height: 0,
         },
+        // Giảm độ nhạy của swipe
+        swipeVelocityImpact: 0.4, // mặc định là 0.5
+        swipeDistanceThreshold: 100, // tăng từ mặc định (60) lên để swipe dài hơn mới chuyển
       }}
     >
       <Tab.Screen
@@ -66,7 +73,7 @@ export default function HomeBottomTabSwipeNavigator() {
       />
       <Tab.Screen
         name="GiaoLy"
-        component={HomeScreen}
+        component={CatechismScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <TabBarIcon icon="book-open" label="Giáo lý" focused={focused} />
@@ -80,6 +87,9 @@ export default function HomeBottomTabSwipeNavigator() {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon icon="calendar" label="Lịch công giáo" focused={focused} />
           ),
+          gestureHandlerProps: {
+            activeOffsetX: [-30, 30], // Phải vuốt mạnh hơn mới được chuyển tab
+          },
         }}
       />
       <Tab.Screen

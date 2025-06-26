@@ -1,24 +1,37 @@
-import React, { useRef, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Platform,
+  BackHandler,
+} from 'react-native';
 import WebView from 'react-native-webview';
 import * as Progress from 'react-native-progress';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
   const [progress, setProgress] = useState(0);
+  const [canGoBack, setCanGoBack] = useState(false);
   const insets = useSafeAreaInsets();
   const webViewRef = useRef(null);
 
   const injectedJSBeforeLoad = `
     (function() {
-      const spacer = document.createElement('div');
-      spacer.style.height = '${insets.top - 20}px';
-      spacer.style.width = '100%';
-      spacer.style.background = 'transparent';
       document.addEventListener('DOMContentLoaded', function() {
+        const spacer = document.createElement('div');
+        spacer.style.height = '${insets.top - 20}px';
+        spacer.style.width = '100%';
+        spacer.style.background = 'transparent';
+        spacer.style.display = 'block';
         document.body.insertBefore(spacer, document.body.firstChild);
+
+        document.body.style['-webkit-overflow-scrolling'] = 'touch';
+        document.body.style.overflow = 'scroll';
       });
     })();
+    true;
   `;
 
   const scrollToTopJS = `
@@ -29,6 +42,20 @@ export default function HomeScreen() {
   const handleScrollToTop = () => {
     webViewRef.current?.injectJavaScript(scrollToTopJS);
   };
+
+  // ✅ Bắt sự kiện nút/quét back Android
+  useEffect(() => {
+    const onBackPress = () => {
+      if (canGoBack && webViewRef.current) {
+        webViewRef.current.goBack();
+        return true;
+      }
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    return () => backHandler.remove();
+  }, [canGoBack]);
 
   return (
     <View style={styles.container}>
@@ -49,24 +76,25 @@ export default function HomeScreen() {
         ref={webViewRef}
         source={{ uri: 'https://www.tonggiaophanhanoi.org/' }}
         onLoadProgress={({ nativeEvent }) => setProgress(nativeEvent.progress)}
+        onNavigationStateChange={(navState) => setCanGoBack(navState.canGoBack)} // 👈 thêm dòng này
         injectedJavaScriptBeforeContentLoaded={injectedJSBeforeLoad}
         javaScriptEnabled
         domStorageEnabled
         startInLoadingState
-        style={{ flex: 1 }}
-        useWebView2
+        useWebKit={true}
+        decelerationRate={Platform.OS === 'ios' ? 'normal' : 0.985}
         bounces={false}
         showsVerticalScrollIndicator={false}
-        allowsBackForwardNavigationGestures={true}
+        allowsBackForwardNavigationGestures={Platform.OS === 'ios'}
+        style={{ flex: 1 }}
       />
 
-      {/* Nút scroll lên top */}
-      {/* <TouchableOpacity
-        onPress={handleScrollToTop}
-        style={styles.scrollTopButton}
-      >
+      {/* Nếu cần thêm nút scroll top, mở comment dòng sau */}
+      {/* 
+      <TouchableOpacity onPress={handleScrollToTop} style={styles.scrollTopButton}>
         <Text style={styles.scrollTopText}>↑</Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
+      */}
     </View>
   );
 }
@@ -78,9 +106,9 @@ const styles = StyleSheet.create({
   scrollTopButton: {
     position: 'absolute',
     bottom: 32,
-    left: 20, // chuyển sang bên trái
+    left: 20,
     backgroundColor: '#1e90ff',
-    padding: 8, // nhỏ hơn
+    padding: 8,
     borderRadius: 20,
     zIndex: 1000,
     shadowColor: '#000',
@@ -91,7 +119,7 @@ const styles = StyleSheet.create({
   },
   scrollTopText: {
     color: '#fff',
-    fontSize: 16, // nhỏ hơn
+    fontSize: 16,
     fontWeight: 'bold',
   },
 });

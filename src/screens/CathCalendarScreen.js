@@ -1,12 +1,13 @@
-import React, { useRef, useState } from 'react';
-import { StyleSheet, View, ActivityIndicator, Dimensions } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import { StyleSheet, View, ActivityIndicator, Platform, BackHandler } from 'react-native';
 import WebView from 'react-native-webview';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export default function WebViewComponent() {
+export default function CathCalendarScreen() {
   const webViewRef = useRef(null);
   const insets = useSafeAreaInsets();
   const [loading, setLoading] = useState(true);
+  const [canGoBack, setCanGoBack] = useState(false);
 
   const injectScript = () => {
     const spacerHeight = insets.top + 8;
@@ -32,7 +33,6 @@ export default function WebViewComponent() {
           }
         });
 
-        // Gửi thông báo về React Native sau khi đã ẩn xong
         window.ReactNativeWebView.postMessage("header-hidden");
       })();
       true;
@@ -46,6 +46,20 @@ export default function WebViewComponent() {
     }
   };
 
+  // ✅ Xử lý nút back trên Android
+  useEffect(() => {
+    const onBackPress = () => {
+      if (canGoBack && webViewRef.current) {
+        webViewRef.current.goBack();
+        return true; // Đã xử lý back
+      }
+      return false; // Cho hệ thống xử lý (thoát màn hình)
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    return () => backHandler.remove();
+  }, [canGoBack]);
+
   return (
     <View style={styles.container}>
       {loading && (
@@ -56,17 +70,24 @@ export default function WebViewComponent() {
 
       <WebView
         ref={webViewRef}
-        style={[styles.webview, { opacity: loading ? 0 : 1 }]} // Ẩn WebView cho đến khi header được ẩn
+        style={[styles.webview, { opacity: loading ? 0 : 1 }]}
         source={{ uri: 'https://www.tonggiaophanhanoi.org/category/phung-vu/lich-cong-giao/' }}
         onLoadEnd={injectScript}
         onMessage={handleMessage}
+        onNavigationStateChange={(navState) => setCanGoBack(navState.canGoBack)} // <- 👈 theo dõi khả năng back
         javaScriptEnabled
         domStorageEnabled
         startInLoadingState={false}
         bounces={false}
         showsVerticalScrollIndicator={false}
-        allowsBackForwardNavigationGestures={true}
-        useWebView2
+        useWebKit={true}
+        allowsBackForwardNavigationGestures={Platform.OS === 'ios'} // <- chỉ iOS dùng
+        decelerationRate={Platform.OS === 'ios' ? 'normal' : 0.985}
+        injectedJavaScriptBeforeContentLoaded={`
+          document.body.style['-webkit-overflow-scrolling'] = 'touch';
+          document.body.style.overflow = 'scroll';
+          true;
+        `}
       />
     </View>
   );
@@ -83,12 +104,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    right: 0, // dùng right thay vì width
-    bottom: 0, // dùng bottom thay vì height
+    right: 0,
+    bottom: 0,
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 999,
   },
-  
 });
