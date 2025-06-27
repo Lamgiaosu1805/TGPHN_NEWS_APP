@@ -6,6 +6,7 @@ import {
   Text,
   Platform,
   BackHandler,
+  AppState,
 } from 'react-native';
 import WebView from 'react-native-webview';
 import * as Progress from 'react-native-progress';
@@ -14,9 +15,15 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 export default function HomeScreen() {
   const [progress, setProgress] = useState(0);
   const [canGoBack, setCanGoBack] = useState(false);
+  const [webViewKey, setWebViewKey] = useState(0);
+  const [isWebViewLoaded, setIsWebViewLoaded] = useState(true);
+
   const insets = useSafeAreaInsets();
   const webViewRef = useRef(null);
+  const appState = useRef(AppState.currentState);
+  const timeoutRef = useRef(null);
 
+  // Inject thêm padding top tránh đè lên status bar
   const injectedJSBeforeLoad = `
     (function() {
       document.addEventListener('DOMContentLoaded', function() {
@@ -43,7 +50,7 @@ export default function HomeScreen() {
     webViewRef.current?.injectJavaScript(scrollToTopJS);
   };
 
-  // ✅ Bắt sự kiện nút/quét back Android
+  // Xử lý back Android
   useEffect(() => {
     const onBackPress = () => {
       if (canGoBack && webViewRef.current) {
@@ -56,6 +63,31 @@ export default function HomeScreen() {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress);
     return () => backHandler.remove();
   }, [canGoBack]);
+
+  // Theo dõi AppState để reload nếu bị trắng
+  useEffect(() => {
+    const handleAppStateChange = (nextAppState) => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        timeoutRef.current = setTimeout(() => {
+          if (!isWebViewLoaded) {
+            console.log('🔁 Reload WebView vì bị trắng sau khi quay lại app');
+            setWebViewKey(prev => prev + 1);
+          }
+        }, 500); // Thời gian đợi xem có load được không
+      }
+
+      appState.current = nextAppState;
+    };
+
+    const subscription = AppState.addEventListener('change', handleAppStateChange);
+    return () => {
+      subscription.remove();
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [isWebViewLoaded]);
 
   return (
     <View style={styles.container}>
@@ -73,10 +105,11 @@ export default function HomeScreen() {
       )}
 
       <WebView
+        key={webViewKey} // Reload khi key thay đổi
         ref={webViewRef}
         source={{ uri: 'https://www.tonggiaophanhanoi.org/' }}
         onLoadProgress={({ nativeEvent }) => setProgress(nativeEvent.progress)}
-        onNavigationStateChange={(navState) => setCanGoBack(navState.canGoBack)} // 👈 thêm dòng này
+        onNavigationStateChange={(navState) => setCanGoBack(navState.canGoBack)}
         injectedJavaScriptBeforeContentLoaded={injectedJSBeforeLoad}
         javaScriptEnabled
         domStorageEnabled
@@ -87,9 +120,15 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
         allowsBackForwardNavigationGestures={Platform.OS === 'ios'}
         style={{ flex: 1 }}
+        onLoadEnd={() => {
+          setIsWebViewLoaded(true);
+          if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        }}
+        onError={() => {
+          setIsWebViewLoaded(false); // Trigger reload nếu lỗi
+        }}
       />
 
-      {/* Nếu cần thêm nút scroll top, mở comment dòng sau */}
       {/* 
       <TouchableOpacity onPress={handleScrollToTop} style={styles.scrollTopButton}>
         <Text style={styles.scrollTopText}>↑</Text>

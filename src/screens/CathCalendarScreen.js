@@ -4,6 +4,7 @@ import {
   View,
   Platform,
   BackHandler,
+  AppState,
 } from 'react-native';
 import WebView from 'react-native-webview';
 import * as Progress from 'react-native-progress';
@@ -13,7 +14,11 @@ export default function CathCalendarScreen() {
   const webViewRef = useRef(null);
   const insets = useSafeAreaInsets();
   const [canGoBack, setCanGoBack] = useState(false);
-  const [progress, setProgress] = useState(0); // ← thêm state
+  const [progress, setProgress] = useState(0);
+  const [webViewKey, setWebViewKey] = useState(0);
+  const [isWebViewLoaded, setIsWebViewLoaded] = useState(true);
+  const appState = useRef(AppState.currentState);
+  const timeoutRef = useRef(null);
 
   const injectScript = () => {
     const spacerHeight = insets.top + 8;
@@ -60,6 +65,30 @@ export default function CathCalendarScreen() {
     return () => backHandler.remove();
   }, [canGoBack]);
 
+  // Reload nếu WebView bị trắng sau khi resume
+  useEffect(() => {
+    const handleAppStateChange = (nextAppState) => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        timeoutRef.current = setTimeout(() => {
+          if (!isWebViewLoaded) {
+            console.log('🔁 Reload CathCalendar WebView vì bị trắng khi resume');
+            setWebViewKey(prev => prev + 1);
+          }
+        }, 500);
+      }
+      appState.current = nextAppState;
+    };
+
+    const subscription = AppState.addEventListener('change', handleAppStateChange);
+    return () => {
+      subscription.remove();
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [isWebViewLoaded]);
+
   return (
     <View style={styles.container}>
       {/* Thanh progress */}
@@ -77,6 +106,7 @@ export default function CathCalendarScreen() {
       )}
 
       <WebView
+        key={webViewKey}
         ref={webViewRef}
         source={{ uri: 'https://www.tonggiaophanhanoi.org/category/phung-vu/lich-cong-giao/' }}
         style={[styles.webview, { opacity: progress < 1 ? 0 : 1 }]}
@@ -89,9 +119,16 @@ export default function CathCalendarScreen() {
         allowsBackForwardNavigationGestures={Platform.OS === 'ios'}
         decelerationRate={Platform.OS === 'ios' ? 'normal' : 0.985}
         onNavigationStateChange={(navState) => setCanGoBack(navState.canGoBack)}
-        onLoadEnd={injectScript}
+        onLoadEnd={() => {
+          setIsWebViewLoaded(true);
+          injectScript();
+          if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        }}
+        onError={() => {
+          setIsWebViewLoaded(false);
+        }}
         onMessage={() => setProgress(1)} // Khi nhận "header-hidden" thì set full
-        onLoadProgress={({ nativeEvent }) => setProgress(nativeEvent.progress)} // ← quan trọng
+        onLoadProgress={({ nativeEvent }) => setProgress(nativeEvent.progress)}
         injectedJavaScriptBeforeContentLoaded={`
           document.body.style['-webkit-overflow-scrolling'] = 'touch';
           document.body.style.overflow = 'scroll';
