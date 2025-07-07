@@ -113,7 +113,7 @@ export default function WebViewDetail({linkWeb}) {
         javaScriptEnabled
         domStorageEnabled
         startInLoadingState={false}
-        bounces={false}
+        bounces={true}
         showsVerticalScrollIndicator={false}
         useWebKit={true}
         allowsBackForwardNavigationGestures={Platform.OS === 'ios'}

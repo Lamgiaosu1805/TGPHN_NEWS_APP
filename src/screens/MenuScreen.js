@@ -10,6 +10,11 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 const menuItems = [
   {
+    icon: 'info-circle',
+    label: 'Giới thiệu',
+    screen: 'InfoScreen'
+  },
+  {
     icon: 'user-friends',
     label: 'Danh sách linh mục',
     screen: 'LMScreen'
@@ -22,13 +27,9 @@ const menuItems = [
   {
     icon: 'cog',
     label: 'Cài đặt',
-    screen: 'LMScreen'
+    screen: 'SettingScreen'
   },
-  {
-    icon: 'info-circle',
-    label: 'Giới thiệu / Hỗ trợ',
-    screen: 'LMScreen'
-  },
+  
 ];
 
 export default function MenuScreen({navigation}) {

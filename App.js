@@ -7,6 +7,8 @@ import LMScreen from './src/screens/LMScreen';
 import GiaoHatScreen from './src/screens/GiaoHatScreen';
 import GiaoXuScreen from './src/screens/GiaoXuScreen';
 import GXDetailScreen from './src/screens/GXDetailScreen';
+import SettingScreen from './src/screens/SettingScreen';
+import InfoScreen from './src/screens/InfoScreen';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -20,6 +22,8 @@ export default function App() {
         <Stack.Screen name="GiaoHatScreen" component={GiaoHatScreen} />
         <Stack.Screen name="GiaoXuScreen" component={GiaoXuScreen} />
         <Stack.Screen name="GXDetailScreen" component={GXDetailScreen} />
+        <Stack.Screen name="SettingScreen" component={SettingScreen} />
+        <Stack.Screen name="InfoScreen" component={InfoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
    
