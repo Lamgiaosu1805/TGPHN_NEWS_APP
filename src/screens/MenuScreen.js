@@ -1,212 +1,85 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
-  TextInput,
-  FlatList,
-  ActivityIndicator,
   StyleSheet,
-  Image
+  FlatList,
+  TouchableOpacity,
 } from 'react-native';
-import axios from 'axios';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useFocusEffect } from '@react-navigation/native';
-import * as Animatable from 'react-native-animatable';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const Tab = createMaterialTopTabNavigator();
+const menuItems = [
+  {
+    icon: 'user-friends',
+    label: 'Danh sách linh mục',
+    screen: 'LMScreen'
+  },
+  {
+    icon: 'church',
+    label: 'Danh sách giáo xứ',
+    screen: 'LMScreen'
+  },
+  {
+    icon: 'cog',
+    label: 'Cài đặt',
+    screen: 'LMScreen'
+  },
+  {
+    icon: 'info-circle',
+    label: 'Giới thiệu / Hỗ trợ',
+    screen: 'LMScreen'
+  },
+];
 
-const ContentLines = React.memo(({ lines }) => {
-  return lines.map((line, idx) => (
-    <Text key={idx} style={styles.content}>{line}</Text>
-  ));
-});
-
-const LinhMucItem = React.memo(({ item }) => (
-  <Animatable.View animation="fadeInUp" duration={400} style={styles.card}>
-    <View style={styles.itemRow}>
-      {item.image ? (
-        <Image source={{ uri: item.image }} style={styles.avatar} resizeMode='contain' />
-      ) : (
-        <View style={[styles.avatar, { backgroundColor: '#ccc' }]} />
-      )}
-      <View style={{ flex: 1 }}>
-        <Text style={styles.title}>{item.title}</Text>
-        <ContentLines lines={item.content} />
-      </View>
-    </View>
-  </Animatable.View>
-));
-
-const LinhMucList = ({ data }) => {
-  if (!data.length) {
-    return (
-      <View style={styles.center}>
-        <Text style={{ fontSize: 16, color: '#666' }}>Không tìm thấy kết quả</Text>
-      </View>
-    );
-  }
-
-  return (
-    <FlatList
-      data={data}
-      keyExtractor={(item, idx) => item.title + idx}
-      renderItem={({ item }) => <LinhMucItem item={item} />}
-      contentContainerStyle={{ paddingBottom: 80 }}
-      initialNumToRender={10}
-      maxToRenderPerBatch={10}
-      windowSize={5}
-      removeClippedSubviews={true}
-    />
-  );
-};
-
-const LinhMucGiaoPhanScreen = ({ data }) => {
-  const list = data.filter(item => item.type !== 'Linh mục dòng');
-  return <LinhMucList data={list} />;
-};
-
-const LinhMucDongScreen = ({ data }) => {
-  const list = data.filter(item => item.type === 'Linh mục dòng');
-  return <LinhMucList data={list} />;
-};
-
-export default function MenuScreen() {
-  const [data, setData] = useState([]);
-  const [searchText, setSearchText] = useState('');
-  const [filteredData, setFilteredData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useFocusEffect(
-    useCallback(() => {
-      const fetchData = async () => {
-        try {
-          const res = await axios.get('https://tgphn-news.lamgs.io.vn/linhMuc/');
-          if (res.data.success) {
-            setData(res.data.data);
-            setFilteredData(res.data.data);
-          }
-        } catch (e) {
-          console.error('Lỗi fetch linh mục:', e);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchData();
-    }, [])
+export default function MenuScreen({navigation}) {
+  const renderItem = ({ item }) => (
+    <TouchableOpacity style={styles.item} activeOpacity={0.7} onPress={() => navigation.navigate(item.screen)}>
+      <FontAwesome5 name={item.icon} size={20} color="black" style={styles.icon} />
+      <Text style={styles.label}>{item.label}</Text>
+    </TouchableOpacity>
   );
 
-  useEffect(() => {
-    const keyword = searchText.trim().toLowerCase();
-    if (keyword === '') {
-      setFilteredData(data);
-    } else {
-      const result = data.filter(item =>
-        item.title.toLowerCase().includes(keyword)
-      );
-      setFilteredData(result);
-    }
-  }, [searchText, data]);
-
-  if (loading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color="#000" />
-      </View>
-    );
-  }
-
   return (
-    <View style={{ flex: 1, paddingTop: 52, backgroundColor: 'white' }}>
-      {/* 🔍 Search with Clear Button */}
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="🔍 Tìm kiếm tên linh mục..."
-          value={searchText}
-          onChangeText={setSearchText}
-        />
-        {searchText.length > 0 && (
-          <FontAwesome5
-            name="times-circle"
-            size={18}
-            color="#999"
-            onPress={() => setSearchText('')}
-            style={styles.clearButton}
-          />
-        )}
-      </View>
-
-      <Tab.Navigator
-        screenOptions={{
-          tabBarIndicatorStyle: { backgroundColor: '#e53935' },
-          tabBarLabelStyle: { fontSize: 14, fontWeight: 'bold' },
-        }}
-      >
-        <Tab.Screen name="Linh mục đoàn">
-          {() => <LinhMucGiaoPhanScreen data={filteredData} />}
-        </Tab.Screen>
-        <Tab.Screen name="Linh mục dòng">
-          {() => <LinhMucDongScreen data={filteredData} />}
-        </Tab.Screen>
-      </Tab.Navigator>
+    <View style={styles.container}>
+      <Text style={styles.header}>Menu</Text>
+      <FlatList
+        data={menuItems}
+        keyExtractor={(item) => item.label}
+        renderItem={renderItem}
+        contentContainerStyle={styles.list}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  center: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginHorizontal: 12,
-    marginBottom: 8,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 10,
-    paddingHorizontal: 12,
-  },
-  searchInput: {
-    flex: 1,
-    paddingVertical: 10,
-    fontSize: 16,
-  },
-  clearButton: {
-    paddingHorizontal: 6,
-  },
-  card: {
+    paddingTop: 60,
     backgroundColor: '#fff',
-    marginHorizontal: 16,
-    marginVertical: 8,
-    padding: 12,
-    borderRadius: 10,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
   },
-  itemRow: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  avatar: {
-    width: 60,
-    height: 90,
-    marginRight: 10,
-    borderRadius: 0,
-  },
-  title: {
+  header: {
+    fontSize: 28,
     fontWeight: 'bold',
-    fontSize: 16,
-    marginBottom: 6,
+    paddingHorizontal: 20,
+    marginBottom: 24,
+    color: 'black',
   },
-  content: {
-    fontSize: 14,
-    color: '#444',
-    lineHeight: 20,
+  list: {
+    paddingHorizontal: 20,
+  },
+  item: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 18,
+    borderBottomColor: '#eee',
+    borderBottomWidth: 1,
+  },
+  icon: {
+    marginRight: 16,
+  },
+  label: {
+    fontSize: 16,
+    color: '#333',
   },
 });

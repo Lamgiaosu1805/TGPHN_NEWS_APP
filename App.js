@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeBottomTabNavigator from './src/navigators/HomeBottomTabNavigator';
 import { StatusBar } from 'expo-status-bar';
+import LMScreen from './src/screens/LMScreen';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -12,8 +13,8 @@ export default function App() {
       <StatusBar translucent style='auto'/>
       <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='HomeBottomTabNavigator'>
         <Stack.Screen name="HomeBottomTabNavigator" component={HomeBottomTabNavigator} />
-        {/* <Stack.Screen name="DetailPostScreen" component={DetailPostScreen} />
-        <Stack.Screen name="SplashScreen" component={SplashScreen} />
+        <Stack.Screen name="LMScreen" component={LMScreen} />
+        {/* <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="LinhMucScreen" component={LinhMucScreen} />
         <Stack.Screen name="GiaoXuScreen" component={GiaoXuScreen} /> */}
       </Stack.Navigator>
