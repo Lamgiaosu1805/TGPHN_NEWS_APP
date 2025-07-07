@@ -2,9 +2,10 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import WebViewDetail from '../components/WebViewDetail'
 
-export default function CathCalendarScreen() {
+export default function GXDetailScreen({route}) {
+    const { link } = route.params;
   return (
-    <WebViewDetail linkWeb={'https://www.tonggiaophanhanoi.org/category/phung-vu/lich-cong-giao/'}/>
+    <WebViewDetail linkWeb={link}/>
   )
 }
 

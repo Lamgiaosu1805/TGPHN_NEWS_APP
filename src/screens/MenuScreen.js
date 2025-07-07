@@ -17,7 +17,7 @@ const menuItems = [
   {
     icon: 'church',
     label: 'Danh sách giáo xứ',
-    screen: 'LMScreen'
+    screen: 'GiaoHatScreen'
   },
   {
     icon: 'cog',

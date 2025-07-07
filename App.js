@@ -4,6 +4,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeBottomTabNavigator from './src/navigators/HomeBottomTabNavigator';
 import { StatusBar } from 'expo-status-bar';
 import LMScreen from './src/screens/LMScreen';
+import GiaoHatScreen from './src/screens/GiaoHatScreen';
+import GiaoXuScreen from './src/screens/GiaoXuScreen';
+import GXDetailScreen from './src/screens/GXDetailScreen';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -14,9 +17,9 @@ export default function App() {
       <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='HomeBottomTabNavigator'>
         <Stack.Screen name="HomeBottomTabNavigator" component={HomeBottomTabNavigator} />
         <Stack.Screen name="LMScreen" component={LMScreen} />
-        {/* <Stack.Screen name="SplashScreen" component={SplashScreen} />
-        <Stack.Screen name="LinhMucScreen" component={LinhMucScreen} />
-        <Stack.Screen name="GiaoXuScreen" component={GiaoXuScreen} /> */}
+        <Stack.Screen name="GiaoHatScreen" component={GiaoHatScreen} />
+        <Stack.Screen name="GiaoXuScreen" component={GiaoXuScreen} />
+        <Stack.Screen name="GXDetailScreen" component={GXDetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
    

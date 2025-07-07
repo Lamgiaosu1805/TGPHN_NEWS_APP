@@ -3,8 +3,8 @@ import React from 'react'
 
 export default function CatechismScreen() {
   return (
-    <View>
-      <Text>CatechismScreen</Text>
+    <View style={{backgroundColor: 'white', flex: 1}}>
+      {/* <Text>CatechismScreen</Text> */}
     </View>
   )
 }
