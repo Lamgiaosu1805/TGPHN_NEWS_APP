@@ -116,7 +116,7 @@ export default function HomeScreen() {
         startInLoadingState
         useWebKit={true}
         decelerationRate={Platform.OS === 'ios' ? 'normal' : 0.985}
-        bounces={false}
+        bounces={true}
         showsVerticalScrollIndicator={false}
         allowsBackForwardNavigationGestures={Platform.OS === 'ios'}
         style={{ flex: 1 }}
