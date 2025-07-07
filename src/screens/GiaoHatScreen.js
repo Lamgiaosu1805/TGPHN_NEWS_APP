@@ -62,7 +62,7 @@ export default function GiaoHatScreen({ navigation }) {
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card} onPress={() => handlePress(item.giaoHat)}>
+    <TouchableOpacity style={styles.card} onPress={() => handlePress(item.giaoHat)} activeOpacity={0.7}>
       <Text style={styles.cardText}>{item.giaoHat}</Text>
       <Text style={styles.count}>{item.count} Giáo xứ</Text>
     </TouchableOpacity>

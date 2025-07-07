@@ -6,7 +6,8 @@ export default function GiaoXuScreen({ route, navigation }) {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.card}
-        onPress={() => navigation.navigate('GXDetailScreen', {link: item.link})}
+        onPress={() => item.link ? navigation.navigate('GXDetailScreen', {link: item.link}) : null}
+        activeOpacity={0.7}
     >
       <Text style={styles.name}>Giáo xứ {item.tenGX}</Text>
       <Text style={styles.sub}>Tên khác: {item.tenKhac ? item.tenKhac : ""}</Text>
