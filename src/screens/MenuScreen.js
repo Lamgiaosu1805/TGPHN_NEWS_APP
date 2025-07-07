@@ -117,7 +117,7 @@ export default function MenuScreen() {
   }
 
   return (
-    <View style={{ flex: 1, marginTop: 52 }}>
+    <View style={{ flex: 1, paddingTop: 52, backgroundColor: 'white' }}>
       {/* 🔍 Search with Clear Button */}
       <View style={styles.searchContainer}>
         <TextInput
@@ -143,7 +143,7 @@ export default function MenuScreen() {
           tabBarLabelStyle: { fontSize: 14, fontWeight: 'bold' },
         }}
       >
-        <Tab.Screen name="Giáo phận">
+        <Tab.Screen name="Linh mục đoàn">
           {() => <LinhMucGiaoPhanScreen data={filteredData} />}
         </Tab.Screen>
         <Tab.Screen name="Linh mục dòng">
