@@ -22,6 +22,11 @@ const menuItems = [
   {
     icon: 'church',
     label: 'Danh sách giáo xứ',
+    screen: 'GiaoXuScreen'
+  },
+  {
+    icon: 'church',
+    label: 'Danh sách giáo hạt',
     screen: 'GiaoHatScreen'
   },
   {

@@ -58,7 +58,7 @@ export default function GiaoHatScreen({ navigation }) {
 
   const handlePress = (giaoHat) => {
     const filtered = allGiaoXu.filter(item => item.giaoHat?.trim() === giaoHat);
-    navigation.navigate('GiaoXuScreen', { giaoHat, giaoXuList: filtered });
+    navigation.navigate('GiaoXuScreen', { giaoHat });
   };
 
   const renderItem = ({ item }) => (
