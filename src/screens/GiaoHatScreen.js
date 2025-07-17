@@ -13,7 +13,7 @@ export default function GiaoHatScreen({ navigation }) {
   useEffect(() => {
     const fetchGiaoXu = async () => {
       try {
-        const res = await axios.get('https://tgphn-news.lamgs.io.vn/giaoXu/');
+        const res = await axios.get('https://news-tgphn.lamgs.io.vn/giaoXu/');
         if (res.data.success && Array.isArray(res.data.data)) {
           const all = res.data.data;
           setAllGiaoXu(all);
